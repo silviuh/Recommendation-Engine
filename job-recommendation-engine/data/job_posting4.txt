@@ -1,0 +1,41 @@
+Descrierea jobului
+If you are looking for an opportunity to grow, Emerson has an appealing role for you! Based in Cluj-Napoca, the Data Scientist Intern will work closely with Data Science team members to assist with exploratory data analysis, model development and tuning.
+
+At Emerson Professional Tools, we strive to build a work environment where ideas are celebrated, and talent is rewarded. We are looking for creative individuals who enjoy collaboration, are excited about software development, who love to learn and share, and who want their work to make an impact.
+
+Are you eager to take your career to the next level? If yes, we welcome your application for this role – Data Scientist Internship – 22013506.
+
+IN THIS ROLE YOU WILL:
+* Perform required analysis based on available data;
+* Develop and implement data processing, including data curation and normalization;
+* Build, test, deploy and improve models;
+* Perform ad-hoc analysis and present results and insights in a clear manner;
+* Directly support two major projects related to tool data analytics and customer data;
+* Be responsible for fulfilling the tasks of development, testing and code review in order to create data analysis and prepare machine learning models;
+* Provide testing of software applications that you are working with;
+* Assist in the synthesis of tasks from functional specifications;
+* Participate in sessions regarding the establishment and reviewal of the project design;
+* Participate in code review sessions;
+
+FOR THIS ROLE YOU WILL NEED:
+
+* To be actively pursuing bachelor’s degree in a science or technology related field or freshly graduated
+* Possess some knowledge of statistics and awareness of algorithms relevant to Data Science
+* Be driven by intellectual curiosity
+* Ability to operate in a team
+* Strong desire to learn along with professional drive
+* To be open to constructive feedback
+* Strong written and spoken English skills
+
+BONUS SKILLS (IT WOULD BE A PLUS):
+* Good knowledge of Python, R.
+C++ is a must
+C also
+* Understanding of query languages like SQL.
+
+Our Data Science team’s vision is to partner with the business to provide data analytics that improve decision quality and drive breakthrough results. Our team’s strategic priorities are to:
+* Apply machine learning to sensor data to develop algorithms that unlock customer value by maximizing certainty and efficiency;
+* Leverage customer data and external data sources to reveal customer insights and optimize digital content;
+* Collaborate with internal business partners to embed data in decision making.
+Descrierea companiei
+At Emerson, we are innovators and problem-solvers, focused on a common purpose: leaving our world in a better place than we found it. Each and every day, our foundational values—integrity, safety and quality, supporting our people, customer focus, continuous improvement, collaboration and innovation—inform every decision we make and empower our employees to keep reaching higher. As a global technology and engineering leader, we provide groundbreaking solutions for customers in industrial, commercial, and residential markets. Our Emerson Automation Solutions business helps process, hybrid, and discrete manufacturers maximize production and protect personnel and the environment while optimizing their energy and operating costs. Our Emerson Commercial & Residential Solutions business helps ensure human comfort and health, protect food quality and safety, advance energy efficiency and create sustainable infrastructure. Emerson, a Fortune 500 company with $15.3 billion in sales and 200 manufacturing locations worldwide, is committed to helping employees grow and thrive throughout their careers. Whether you’re an established professional looking for a career change, an undergraduate student exploring options or a recent MBA graduate, you’ll find a variety of opportunities at Emerson. Join our team and start your journey today.

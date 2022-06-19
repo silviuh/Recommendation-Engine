@@ -1,0 +1,46 @@
+Passionate about software development but also curious about how all the software components work together?
+
+We are looking for an Internship to join our development team in Timisoara and follow the career path as a Software Integrator.
+
+#AutonomousMobility
+
+You will learn how to:
+
+
+
+* Develop a SW Integration Strategy Plan;
+* What is ASPICE and the automotive development process;
+* Work with Continuous Integration systems;
+* Create automated tests;
+* Execute test cases according to the test plan;
+* Develop various automatization scripts;
+* Learn working with CMake.
+#LI-Hybrid
+
+Job Requirements:
+
+This is what you need to know for starting this journey:
+
+
+
+* C programming skills;
+* Linux is considered a plus;
+* Know-how in scripting languages (Python) is a plus;
+* Logical thinking;
+* Advanced English.
+What we offer:
+
+
+
+* Integration Program in a professional, young & dynamic team;
+* A mentor for your learning period;
+* Competitive Salaries & Benefits;
+* Recommendation Bonuses for new team members;
+* Flexible working hours for your studies.
+Wellbeing:
+
+
+
+* Health & Wellness (Private Health Insurance, Life Insurance, Sport activities etc.);
+* Different discounts (glasses, tires, medical, shopping);
+* In-house restaurant & coffee corners.

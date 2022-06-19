@@ -1,0 +1,54 @@
+ Hartan Mihai-Silviu
+Actively looking for software engineering internship and junior positions.
+Email: silviuhartan10@gmail.com Phone: +040756566128
+Github profile: https://github.com/silviuh
+July 2019 - September 2020 Continental - Software Developer Intern (Iasi, Romania)
+March 2019 - May 2019 Bitdefender - Software Engineer Intern (Iasi, Romania)
+● Building and automating tasks, working with low-level software API (Windows API)
+● Worked with C and Windows API, JS, VBA, VBScript, PowerShell
+● Developed persistent malware infections and exploits with VBA, VBScript, and JS.
+● Developed Proof of Concept programs, Wrapper Scripts
+● Documented about exploits, ex: Eternal Blue, Dirty Cow.
+October 2019 - November 2019. Android Training - hosted by Movial(Iasi, Romania)
+● Android basics. Final project - game implementation
+● I gained an understanding of Android UI Architecture
+● Learned about Retrofit
+March2020-May2020. KotlinTraining-hostedbyThinslices(Iasi,Romania)
+● Kotlin Object-Oriented Programming, Functional Programming and Coroutines. , basic Spring API.
+● Acquired knowledge of about Client-Server Architecture
+● I’ve used Mongo DB for information retrieval
+June 2020 - September 2020 Continental - Software Engineer Intern (Iasi, Romania) June2021-PresentOngoing. Continental
+I’m currently working as a junior Software Engineer.
+Education
+Oct 2018- July 2022 Gheorghe Asachi Technical University of Iasi - Bachelor's in Computer Science and Engineering.
+Sept 2014 - June 2018 Emil Racovita National High School, Iasi, Romania -
+Baccalaureate grade: 97,6 / 100. Courses which I had a keen interest in:
+● Algebra and Mathematical Analysis
+● Electricity and Electronics
+● Data structures
+Favourite courses:
+Data Structures and Algorithms Design
+● Design
+● Programming Paradigms
+● Computer Architecture
+● Operating Systems
+● Database Design
+
+ ● Web Technologies
+● Services oriented programming
+Looking forward to more about these topics:
+● Distributed Systems
+● Networks Planning and Design
+● Web Databases
+● Machine Learning
+● Artificial intelligence
+Skills
+● Strong with data structures and algorithms
+● Technologies: C/C++, Python, Java, Kotlin, .NET, Java Spring, HTML, CSS, NodeJS
+● Good knowledge of Design Patterns, OOP, Databases manipulation(SQL and NO-SQL )
+● Knowledge of embedded systems and computer architecture
+● Good knowledge of SQL and oriented data bases design
+● Knowledge of communication protocols.
+● Strong knowledge of English
+● Interpersonal skills: communicative, very friendly, sociable and extrovert, helpful and a teamplayer,
+hard-working guy and quite ambitious, love to take up on new challenges

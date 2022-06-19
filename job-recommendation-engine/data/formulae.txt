@@ -1,0 +1,44 @@
+TODO
+
+node:
+
+for every job in the db
+    function that spanws python process,
+    gives cv from user as first command line arg and job description as seconds
+    the function listens for the engine result
+
+    -> takes the 1000 most recommended jobs or
+    it stores them all in ram and gives them sorted and paginated
+
+
+
+
+1) Passion
+Being passionate about your job will help you feel fulfilled and make it easier to get up and go to work each and every day. Make sure that your role is meaningful to you and that the company inspires you to do your very best. This will come naturally if you identify with the company’s mission statement and the work they do day in, day out.
+
+2) Location
+Commuting can add many hours and lots of stress to the workday, which is something a lot of people can’t bear the thought of. Yet for some workplaces, a hefty commute is unavoidable, so it’s definitely one of the most important things to check and consider when scouring for a new role.
+
+3) Workplace
+If you can, take a look around the company’s workplace to see if it’s a good fit for you. Is it a pleasant, well-lit, comfortable place to work? Do you get good vibes from having a walk around? Go with your gut instinct – after all, this is the place you’ll be spending a large portion of your time!
+
+4) Work-life balance
+Maintaining work-life balance is not only important for your personal health, wellbeing, and relationships but it can also improve the efficiency of your work performance. In today’s fast-paced, ever-changing business world, the ability to achieve work-life balance is increasingly difficult, so it is more important than ever for people to find a job that respects and encourages the balance.
+
+5) Job title
+Taking salaries out of the equation, most people aren’t happy to take a lower level job than what they’ve had previously, and job title for some is everything. Whether you crave the status ‘manager’ or ‘supervisor’ titles carry, or if you’re simply climbing your way up the career ladder, your official job title is certainly something to take into account.
+
+6) Company culture
+This can be hard to figure out before you actually start working somewhere, but there are a few questions you should be asking yourself to help decide whether the company’s culture is a good fit for you. Would you prefer working in a small or a large company? Is the working environment relaxed or formal? Does the management team inspire you? What’s the dress code like? Are the people welcoming and friendly?
+
+7) Opportunities
+Look for a company that invests in the growth of its people and provides opportunities to develop skills which will help you progress to a more senior role, to start your own company, or whatever your long-time goal might be. Make sure you’re clear on what the company can offer in terms of professional development if you know that you’d eventually like to progress.
+
+8) Recognition
+Whether you have your eye on a hefty bonus or you’re simply content in receiving verbal appraise, it’s nice for our hard work to be recognized and rewarded. For this reason, weighing up a company’s appraisal format is essential.
+
+9) Colleagues
+Full-time workers will spend a big chunk of their waking lives at work, so it’s vital to ensure that the people you’re working with are the right fit for you. Having a good support network at work will help to motivate you each day, and as human beings are naturally social creatures, work friendships and positive interactions will increase happiness and productivity both inside and outside the office.
+
+10) Salary
+Unless you have a private income or somebody else finances your lifestyle, the salary from your job will pay for your home, food, and everything else. As such, it’s vital to ensure that your job salary meets the minimum expectations for your job role and title, caters to your basic needs, and can sustain your lifestyle.
