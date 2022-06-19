@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request
 from WordCrunchingEngine import WordCrunchingEngine
 
@@ -8,36 +10,26 @@ app = Flask(__name__)
 @app.route('/get-score', methods=['POST'])
 def get_score():
     request_data = request.get_json()
+    result = {
+        "data": ""
+    }
+    result_data = []
 
-    # print(request_data)
-    #
-    # language = None
-    # framework = None
-    # python_version = None
-    # example = None
-    # boolean_test = None
-    #
-    # if request_data:
-    #     if 'language' in request_data:
-    #         language = request_data['language']
-    #
-    #     if 'framework' in request_data:
-    #         framework = request_data['framework']
-    #
-    #     if 'version_info' in request_data:
-    #         if 'python' in request_data['version_info']:
-    #             python_version = request_data['version_info']['python']
-    #
-    #     if 'examples' in request_data:
-    #         if (type(request_data['examples']) == list) and (len(request_data['examples']) > 0):
-    #             example = request_data['examples'][0]
-    #
-    #     if 'boolean_test' in request_data:
-    #         boolean_test = request_data['boolean_test']
+    # TODO
+    # vezi cum faci si cu limba sa o iei in considerare ca sa nu ai rezultate egale cu 0
+    # daca am cv in engleza, descriere in romana poate fac o traducere la backend si vice-versa
 
-    # return word_crunching_engine.matching_keywords('data/job_posting4.txt', 'data/Resume1.txt')
-    return word_crunching_engine.matching_keywords(request_data['jobPosting'], request_data['resume'],
-                                                   request_data['language'])
+    for jobDescription in request_data['jobPosting']:
+        result_data.append(
+            word_crunching_engine.matching_keywords(jobDescription['jobDescription'], request_data['resume'],
+                                                    request_data['language'], jobDescription['_id'],
+                                                    jobDescription['jobName']))
+
+    print(result_data)
+    result['data'] = result_data
+    result = json.dumps(result)
+
+    return result
 
 
 if __name__ == '__main__':

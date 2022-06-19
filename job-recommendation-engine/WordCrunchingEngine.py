@@ -156,7 +156,7 @@ class WordCrunchingEngine:
         # print('You can choose some words in the job posting from the table below to add your resume.')
         return df
 
-    def matching_keywords(self, job_posting, resume, language):
+    def matching_keywords(self, job_posting, resume, language, job_id, job_name):
         if language == "romanian":
             self.which_stopwords = self.romanian_stopwords
         elif language == "english":
@@ -178,6 +178,8 @@ class WordCrunchingEngine:
         common_keywords = self.common_words(list_1, list_2)
 
         result = {
+            "job_ID": job_id,
+            "job_name": job_name,
             "common_words": len(common_keywords),
             "words_percentage": self.truncate(len(common_keywords) / len(list_2) * 100),
             "cosine_similarity": self.truncate(self.compute_cosine_similarity(list_1, list_2)),
