@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
@@ -12,6 +14,9 @@ class WordCrunchingEngine:
         self.wn = nltk.WordNetLemmatizer()
         self.stopwords = nltk.corpus.stopwords.words('english')
         self.romanian_stopwords = nltk.corpus.stopwords.words('romanian')
+
+    def truncate(self, num):
+        return re.sub(r'^(\d+\.\d{,3})\d*$', r'\1', str(num))
 
     def concat(self, s):
         '''Concatenate words like "D A T A  S C I E N C E" to get "DATA SCIENCE"'''
@@ -151,38 +156,50 @@ class WordCrunchingEngine:
         return df
 
     def matching_keywords(self, job_posting, resume):
-        with open(job_posting, 'r') as f:
-            job_posting = f.read()
-
-        with open(resume, 'r') as f:
-            resume = f.read()
+        # with open(job_posting, 'r') as f:
+        #     job_posting = f.read()
+        #
+        # with open(resume, 'r') as f:
+        #     resume = f.read()
 
         list_1 = self.preprocess_text(job_posting)
         list_2 = self.preprocess_text(resume)
 
-        print(list_1)
-        print(list_2)
+        # print(list_1)
+        # print(list_2)
 
         # Apply common_words function to the lists
         common_keywords = self.common_words(list_1, list_2)
 
+        result = {
+            "common_words": len(common_keywords),
+            "words_percentage": self.truncate(len(common_keywords) / len(list_2) * 100),
+            "cosine_similarity": self.truncate(self.compute_cosine_similarity(list_1, list_2)),
+            "jaccard_similarity": self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
+            # "frequency_table": self.get_frequency_table(list_1, list_2)
+        }
+
+        return json.dumps(result)
+        # Dictionary to JSON Object using dumps() method
+        # Return JSON Object
+
         # Print number of matching words
-        print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
-        # Print the percentage of matching words
-        print(
-            '{:.0%} of the words in your resume are in the job description'.format(len(common_keywords) / len(list_2)),
-            '\n')
-        print('{0} % is the value of the [COSINE] percentage computation on your set of lists'.format(
-            self.compute_cosine_similarity(list_1, list_2)),
-            '\n')
-        print('{:.0} is the value for the [JACCARD] Index Computation on your set of lists '.format(
-            self.jaccard_similarity(list_1, list_2)),
-            '\n')
-        print('the frequency table is: ')
-        print(self.get_frequency_table(list_1, list_2))
+        # print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
+        # # Print the percentage of matching words
+        # print(
+        #     '{:.0%} of the words in your resume are in the job description'.format(len(common_keywords) / len(list_2)),
+        #     '\n')
+        # print('{0} % is the value of the [COSINE] percentage computation on your set of lists'.format(
+        #     self.compute_cosine_similarity(list_1, list_2)),
+        #     '\n')
+        # print('{:.0} is the value for the [JACCARD] Index Computation on your set of lists '.format(
+        #     self.jaccard_similarity(list_1, list_2)),
+        #     '\n')
+        # print('the frequency table is: ')
+        # print(self.get_frequency_table(list_1, list_2))
         # Create an empty dictionary
 
 
 if __name__ == '__main__':
     engine = WordCrunchingEngine()
-    engine.matching_keywords('data/job_posting4.txt', 'data/Resume1.txt')
+    # print(engine.matching_keywords('data/job_posting4.txt', 'data/Resume1.txt'))
