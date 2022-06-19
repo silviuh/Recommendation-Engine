@@ -12,7 +12,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 class WordCrunchingEngine:
     def __init__(self):
         self.wn = nltk.WordNetLemmatizer()
-        self.stopwords = nltk.corpus.stopwords.words('english')
+        self.which_stopwords = None
+        self.english_stopwords = nltk.corpus.stopwords.words('english')
         self.romanian_stopwords = nltk.corpus.stopwords.words('romanian')
 
     def truncate(self, num):
@@ -31,7 +32,7 @@ class WordCrunchingEngine:
             s = s.replace(x.group(), ' ' + x.group().replace(' ', '') + ' ')
         return s
 
-    def preprocess_text(self, document):
+    def preprocess_text(self, document, stopwords):
         # convert to lower case
         document = str(document).lower()
         # replace unusual quotes with '
@@ -68,7 +69,7 @@ class WordCrunchingEngine:
         # if remove stop words flag set then remove them
         z = []
         for i in document.split():
-            if i not in self.stopwords:
+            if i not in stopwords:
                 # use lemmatizer to reduce the inflections
                 i = self.wn.lemmatize(i)
                 z.append(i)
@@ -78,7 +79,7 @@ class WordCrunchingEngine:
         z = z.strip()
         return list(z.split(" "))
 
-    def clean_the_text(self, text):
+    def clean_the_text(self, text, stopwords):
         # Replace non-word characters with empty space
         # text = re.sub('[^A-Za-z0-9\s]', ' ', text)
 
@@ -155,15 +156,20 @@ class WordCrunchingEngine:
         # print('You can choose some words in the job posting from the table below to add your resume.')
         return df
 
-    def matching_keywords(self, job_posting, resume):
+    def matching_keywords(self, job_posting, resume, language):
+        if language == "romanian":
+            self.which_stopwords = self.romanian_stopwords
+        elif language == "english":
+            self.which_stopwords = self.english_stopwords
+
         # with open(job_posting, 'r') as f:
         #     job_posting = f.read()
         #
         # with open(resume, 'r') as f:
         #     resume = f.read()
 
-        list_1 = self.preprocess_text(job_posting)
-        list_2 = self.preprocess_text(resume)
+        list_1 = self.preprocess_text(job_posting, self.which_stopwords)
+        list_2 = self.preprocess_text(resume, self.which_stopwords)
 
         # print(list_1)
         # print(list_2)

@@ -36,7 +36,8 @@ def get_score():
     #         boolean_test = request_data['boolean_test']
 
     # return word_crunching_engine.matching_keywords('data/job_posting4.txt', 'data/Resume1.txt')
-    return word_crunching_engine.matching_keywords(request_data['jobPosting'], request_data['resume'])
+    return word_crunching_engine.matching_keywords(request_data['jobPosting'], request_data['resume'],
+                                                   request_data['language'])
 
 
 if __name__ == '__main__':
