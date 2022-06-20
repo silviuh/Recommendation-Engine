@@ -10,6 +10,7 @@ import string
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from textblob import TextBlob
+from string import punctuation
 
 
 class WordCrunchingEngine:
@@ -160,25 +161,41 @@ class WordCrunchingEngine:
         # print('You can choose some words in the job posting from the table below to add your resume.')
         return df
 
-    def matching_keywords(self, job_posting, resume, language, job_id, job_name):
-        try:
-            if not (job_posting == "" or job_posting is None or
-                    resume == "" or resume is None):
-                resume_detected_language = self.translator.detect(str(resume))
-                job_description_detected_language = self.translator.detect(str(job_posting))
+    def string_to_list(self, string):
+        r = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
+        list_res = (r.split(string))
+        return list_res
 
-                if resume_detected_language.lang != job_description_detected_language.lang:
-                    if resume_detected_language.lang == "ro":
-                        resume = self.translator.translate(resume, dest='en').text
-                    elif job_description_detected_language.lang == "ro":
-                        job_posting = self.translator.translate(job_posting, dest='en').text
+    def matching_keywords(self, job_posting, resume, language, job_id, job_name, job_location):
+        have_the_same_location = 0
+        job_location_copy = job_location
 
-                if resume_detected_language.lang == "ro":
-                    self.which_stopwords = self.romanian_stopwords
-                elif resume_detected_language.lang == "en":
-                    self.which_stopwords = self.english_stopwords
-        except Exception as e:
-            print('Failed to: ' + str(e))
+        if resume is not None:
+            job_location_copy = self.string_to_list(job_location.lower())
+            for word in job_location_copy:
+                if word in resume.lower():
+                    have_the_same_location = 100
+                    break
+
+        print(str(have_the_same_location) + ' ' + job_location)
+        # try:
+        #     if not (job_posting == "" or job_posting is None or
+        #             resume == "" or resume is None):
+        #         resume_detected_language = self.translator.detect(str(resume))
+        #         job_description_detected_language = self.translator.detect(str(job_posting))
+        #
+        #         if resume_detected_language.lang != job_description_detected_language.lang:
+        #             if resume_detected_language.lang == "ro":
+        #                 resume = self.translator.translate(resume, dest='en').text
+        #             elif job_description_detected_language.lang == "ro":
+        #                 job_posting = self.translator.translate(job_posting, dest='en').text
+        #
+        #         if resume_detected_language.lang == "ro":
+        #             self.which_stopwords = self.romanian_stopwords
+        #         elif resume_detected_language.lang == "en":
+        #             self.which_stopwords = self.english_stopwords
+        # except Exception as e:
+        #     print('Failed to: ' + str(e))
 
         # with open(job_posting, 'r') as f:
         #     job_posting = f.read()
@@ -195,13 +212,26 @@ class WordCrunchingEngine:
         # Apply common_words function to the lists
         common_keywords = self.common_words(list_1, list_2)
 
+        common_words = len(common_keywords)
+        words_percentage = self.truncate(len(common_keywords) / len(list_2) * 100)
+        cosine_similarity_value = self.truncate(self.compute_cosine_similarity(list_1, list_2))
+        jaccard_similarity = self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
+        score = self.truncate(
+            float(0.4) * float(cosine_similarity_value) \
+            + float(0.3) * float(jaccard_similarity) \
+            + float(0.15) * float(words_percentage) \
+            + float(0.15) * float(have_the_same_location)
+        )
+
         result = {
             "job_ID": job_id,
+            "job_Location": job_location,
             "job_name": job_name,
-            "common_words": len(common_keywords),
-            "words_percentage": self.truncate(len(common_keywords) / len(list_2) * 100),
-            "cosine_similarity": self.truncate(self.compute_cosine_similarity(list_1, list_2)),
-            "jaccard_similarity": self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
+            "common_words": common_words,
+            "words_percentage": words_percentage,
+            "cosine_similarity": cosine_similarity_value,
+            "jaccard_similarity": jaccard_similarity,
+            "score": score
             # "frequency_table": self.get_frequency_table(list_1, list_2)
         }
 
@@ -226,8 +256,28 @@ class WordCrunchingEngine:
     # Create an empty dictionary
 
 
+def string_to_list(string):
+    r = re.compile(r'[\s{}]+'.format(re.escape(punctuation)))
+    list_res = (r.split(string))
+    return list_res
+
+
 if __name__ == '__main__':
-    engine = WordCrunchingEngine()
+    have_the_same_location = 0
+
+    job_location = "București, Baia Mare, Constanta  și alte 2 orașe"
+    resume = "iaca naa brasov timisoara BUCURESTI constantaa"
+    if resume is not None:
+        job_location = string_to_list(job_location.lower())
+        print(job_location)
+        print(resume.lower())
+        for word in job_location:
+            if word in resume.lower():
+                have_the_same_location = 100
+                print("YES")
+                break
+
+    # engine = WordCrunchingEngine()
     # translator = Translator()
     # f = open(
     #     '/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/data/Resume_romana.txt',
