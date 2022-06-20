@@ -1,6 +1,7 @@
 import json
 
 from flask import Flask, request
+from textblob import TextBlob
 from WordCrunchingEngine import WordCrunchingEngine
 
 app = Flask(__name__)
@@ -15,17 +16,16 @@ def get_score():
     }
     result_data = []
 
-    # TODO
-    # vezi cum faci si cu limba sa o iei in considerare ca sa nu ai rezultate egale cu 0
-    # daca am cv in engleza, descriere in romana poate fac o traducere la backend si vice-versa
-
     for jobDescription in request_data['jobPosting']:
-        result_data.append(
+        if jobDescription['jobDescription'] == '' or request_data['resume'] == '':
+            print("CACAMACA")
+            continue
+
+        print(result_data.append(
             word_crunching_engine.matching_keywords(jobDescription['jobDescription'], request_data['resume'],
                                                     request_data['language'], jobDescription['_id'],
-                                                    jobDescription['jobName']))
+                                                    jobDescription['jobName'])))
 
-    print(result_data)
     result['data'] = result_data
     result = json.dumps(result)
 

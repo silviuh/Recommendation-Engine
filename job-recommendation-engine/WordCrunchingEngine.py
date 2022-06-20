@@ -1,20 +1,24 @@
 import json
 
+import googletrans
 import pandas as pd
 import nltk
+from googletrans import Translator
 from nltk.corpus import stopwords
 import re
 import string
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from textblob import TextBlob
 
 
 class WordCrunchingEngine:
     def __init__(self):
         self.wn = nltk.WordNetLemmatizer()
-        self.which_stopwords = None
         self.english_stopwords = nltk.corpus.stopwords.words('english')
         self.romanian_stopwords = nltk.corpus.stopwords.words('romanian')
+        self.translator = Translator()
+        self.which_stopwords = self.english_stopwords
 
     def truncate(self, num):
         return re.sub(r'^(\d+\.\d{,3})\d*$', r'\1', str(num))
@@ -157,10 +161,24 @@ class WordCrunchingEngine:
         return df
 
     def matching_keywords(self, job_posting, resume, language, job_id, job_name):
-        if language == "romanian":
-            self.which_stopwords = self.romanian_stopwords
-        elif language == "english":
-            self.which_stopwords = self.english_stopwords
+        try:
+            if not (job_posting == "" or job_posting is None or
+                    resume == "" or resume is None):
+                resume_detected_language = self.translator.detect(str(resume))
+                job_description_detected_language = self.translator.detect(str(job_posting))
+
+                if resume_detected_language.lang != job_description_detected_language.lang:
+                    if resume_detected_language.lang == "ro":
+                        resume = self.translator.translate(resume, dest='en').text
+                    elif job_description_detected_language.lang == "ro":
+                        job_posting = self.translator.translate(job_posting, dest='en').text
+
+                if resume_detected_language.lang == "ro":
+                    self.which_stopwords = self.romanian_stopwords
+                elif resume_detected_language.lang == "en":
+                    self.which_stopwords = self.english_stopwords
+        except Exception as e:
+            print('Failed to: ' + str(e))
 
         # with open(job_posting, 'r') as f:
         #     job_posting = f.read()
@@ -188,26 +206,47 @@ class WordCrunchingEngine:
         }
 
         return json.dumps(result)
-        # Dictionary to JSON Object using dumps() method
-        # Return JSON Object
+    # Dictionary to JSON Object using dumps() method
+    # Return JSON Object
 
-        # Print number of matching words
-        # print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
-        # # Print the percentage of matching words
-        # print(
-        #     '{:.0%} of the words in your resume are in the job description'.format(len(common_keywords) / len(list_2)),
-        #     '\n')
-        # print('{0} % is the value of the [COSINE] percentage computation on your set of lists'.format(
-        #     self.compute_cosine_similarity(list_1, list_2)),
-        #     '\n')
-        # print('{:.0} is the value for the [JACCARD] Index Computation on your set of lists '.format(
-        #     self.jaccard_similarity(list_1, list_2)),
-        #     '\n')
-        # print('the frequency table is: ')
-        # print(self.get_frequency_table(list_1, list_2))
-        # Create an empty dictionary
+    # Print number of matching words
+    # print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
+    # # Print the percentage of matching words
+    # print(
+    #     '{:.0%} of the words in your resume are in the job description'.format(len(common_keywords) / len(list_2)),
+    #     '\n')
+    # print('{0} % is the value of the [COSINE] percentage computation on your set of lists'.format(
+    #     self.compute_cosine_similarity(list_1, list_2)),
+    #     '\n')
+    # print('{:.0} is the value for the [JACCARD] Index Computation on your set of lists '.format(
+    #     self.jaccard_similarity(list_1, list_2)),
+    #     '\n')
+    # print('the frequency table is: ')
+    # print(self.get_frequency_table(list_1, list_2))
+    # Create an empty dictionary
 
 
 if __name__ == '__main__':
     engine = WordCrunchingEngine()
-    # print(engine.matching_keywords('data/job_posting4.txt', 'data/Resume1.txt'))
+    # translator = Translator()
+    # f = open(
+    #     '/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/data/Resume_romana.txt',
+    #     'r')
+    # if f.mode == 'r':
+    #     if f.mode == 'r':
+    #         contents = f.read()
+    #         print("LIMBA ESTE: " + translator.detect(contents).lang)
+    #         result = translator.translate(contents)
+    #         print(result.text)
+
+    #
+    # print(engine.matching_keywords(
+    #     "                   "
+    #     ""
+    #     ""
+    #     ""
+    #     "                                                                                                We are looking for an Internship to join our development team in Timisoara and follow the career path as a "
+    #     "Software Integrator.",
+    #     "Obiectiv profesional	Sa lucrez ca programator Web intr-o companie aflata in dezvoltare si sa contribui la "
+    #     "cresterea renumelui si cotei de piata a acesteia.",
+    #     "romanian", "32432434", "lucrator la PLUG"))
