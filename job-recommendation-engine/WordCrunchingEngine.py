@@ -166,9 +166,11 @@ class WordCrunchingEngine:
         list_res = (r.split(string))
         return list_res
 
-    def matching_keywords(self, job_posting, resume, language, job_id, job_name, job_location):
+    def matching_keywords(self, job, resume):
         have_the_same_location = 0
+        job_location = job['jobLocation']
         job_location_copy = job_location
+        job_posting = job['jobDescription']
 
         if resume is not None:
             job_location_copy = self.string_to_list(job_location.lower())
@@ -177,7 +179,7 @@ class WordCrunchingEngine:
                     have_the_same_location = 100
                     break
 
-        print(str(have_the_same_location) + ' ' + job_location)
+        # print(str(have_the_same_location) + ' ' + job_location)
         # try:
         #     if not (job_posting == "" or job_posting is None or
         #             resume == "" or resume is None):
@@ -206,10 +208,6 @@ class WordCrunchingEngine:
         list_1 = self.preprocess_text(job_posting, self.which_stopwords)
         list_2 = self.preprocess_text(resume, self.which_stopwords)
 
-        # print(list_1)
-        # print(list_2)
-
-        # Apply common_words function to the lists
         common_keywords = self.common_words(list_1, list_2)
 
         common_words = len(common_keywords)
@@ -222,22 +220,34 @@ class WordCrunchingEngine:
             + float(0.15) * float(words_percentage) \
             + float(0.15) * float(have_the_same_location)
         )
+        #
+        # result = {
+        #     "job_ID": job_id,
+        #     "job_Location": job_location,
+        #     "job_name": job_name,
+        #     "common_words": common_words,
+        #     "words_percentage": words_percentage,
+        #     "cosine_similarity": cosine_similarity_value,
+        #     "jaccard_similarity": jaccard_similarity,
+        #     "score": score
+        #     # "frequency_table": self.get_frequency_table(list_1, list_2)
+        # }
 
-        result = {
-            "job_ID": job_id,
-            "job_Location": job_location,
-            "job_name": job_name,
+        result_data = {
             "common_words": common_words,
             "words_percentage": words_percentage,
             "cosine_similarity": cosine_similarity_value,
             "jaccard_similarity": jaccard_similarity,
             "score": score
-            # "frequency_table": self.get_frequency_table(list_1, list_2)
         }
 
-        return json.dumps(result)
-    # Dictionary to JSON Object using dumps() method
-    # Return JSON Object
+        # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data
+        result = {
+            "job": job,
+            "result_data": result_data
+        }
+
+        return result
 
     # Print number of matching words
     # print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
@@ -263,19 +273,39 @@ def string_to_list(string):
 
 
 if __name__ == '__main__':
-    have_the_same_location = 0
+    # have_the_same_location = 0
+    #
+    # job_location = "București, Baia Mare, Constanta  și alte 2 orașe"
+    # resume = "iaca naa brasov timisoara BUCURESTI constantaa"
+    # if resume is not None:
+    #     job_location = string_to_list(job_location.lower())
+    #     print(job_location)
+    #     print(resume.lower())
+    #     for word in job_location:
+    #         if word in resume.lower():
+    #             have_the_same_location = 100
+    #             print("YES")
+    #             break
 
-    job_location = "București, Baia Mare, Constanta  și alte 2 orașe"
-    resume = "iaca naa brasov timisoara BUCURESTI constantaa"
-    if resume is not None:
-        job_location = string_to_list(job_location.lower())
-        print(job_location)
-        print(resume.lower())
-        for word in job_location:
-            if word in resume.lower():
-                have_the_same_location = 100
-                print("YES")
-                break
+    import pprint
+
+    # Array of JSON Objects
+    products = [{"banan": {"name": "HDD", "brand": "Samsung", "price": "$100"},
+                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+                 },
+                {"banan": {"name": "Monitor", "brand": "Dell", "price": "$120"},
+                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+                 },
+                {"banan": {"name": "Mouse", "brand": "Logitech", "price": "$10"},
+                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+                 }]
+    '''
+    Print the sorted JSON objects in descending order
+    based on the price key value
+    '''
+    print("\nArray of JSON objects after sorting:")
+    products = sorted(products, key=lambda k: k['banan']['price'], reverse=True)
+    pprint.pprint((json.dumps(products)))
 
     # engine = WordCrunchingEngine()
     # translator = Translator()
