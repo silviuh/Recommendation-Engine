@@ -12,7 +12,7 @@ app = Flask(__name__)
 def get_score():
     request_data = request.get_json()
     result = {
-        "container_data": ""
+        "container_data": []
     }
     result_data = []
 
@@ -24,16 +24,25 @@ def get_score():
         #     word_crunching_engine.matching_keywords(jobDescription['jobDescription'], request_data['resume'],
         #                                             request_data['language'], jobDescription['_id'],
         #                                             jobDescription['jobName'], jobDescription['jobLocation']))
-        result_data.append(json.dumps(
+        result_data.append(
             word_crunching_engine.matching_keywords(job, request_data[
-                'resume'])))  # receives dict, converts into json with dumps
+                'resume']))  # receives dict, converts into json with dumps
+        # result_data.append(json.dumps(
+        #     word_crunching_engine.matching_keywords(job, request_data[
+        #         'resume'])))  # receives dict, converts into json with dumps
 
-    result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['result_data']['score'],
-                            reverse=True)  # converts into dict for data processing - sorting with loads
+    # result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['result_data']['score'],
+    #                         reverse=True)  # converts into dict for data processing - sorting with loads
+
+    # result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['score'],
+    #                                   reverse=True)
+
+    result['container_data'] = sorted(result_data, key=lambda k: k['score'],
+                                      reverse=True)
 
     # print(json.dumps(result))
-
-    return json.dumps(result)
+    # return json.dumps(result)
+    return result
 
 
 if __name__ == '__main__':

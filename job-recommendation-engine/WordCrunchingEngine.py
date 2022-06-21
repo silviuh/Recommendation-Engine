@@ -241,13 +241,25 @@ class WordCrunchingEngine:
             "score": score
         }
 
-        # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data
-        result = {
-            "job": job,
-            "result_data": result_data
+        job_enhanced_data = {
+            '_id': job['_id'],
+            'jobName': job['jobName'],
+            'jobEmployer': job['jobEmployer'],
+            'jobLocation': job['_id'],
+            'jobDate': job['jobDate'],
+            'jobUrl': job['jobUrl'],
+            'jobDescription': job['jobDescription'],
+            'score': score
         }
 
-        return result
+        # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data
+        # result = {
+        #     "job": job,
+        #     "result_data": result_data
+        # }
+        # # return result
+
+        return job_enhanced_data
 
     # Print number of matching words
     # print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
