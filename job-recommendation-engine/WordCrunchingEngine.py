@@ -6,6 +6,7 @@ import nltk
 from googletrans import Translator
 from nltk.corpus import stopwords
 import re
+import unidecode
 import string
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -168,14 +169,15 @@ class WordCrunchingEngine:
 
     def matching_keywords(self, job, resume):
         have_the_same_location = 0
-        job_location = job['jobLocation']
+        job_location = unidecode.unidecode(job['jobLocation'])  # TODO OPTIMIZE
         job_location_copy = job_location
         job_posting = job['jobDescription']
+        job_resume_without_accent = unidecode.unidecode(resume)  # TODO OPTIMIZE
 
-        if resume is not None:
-            job_location_copy = self.string_to_list(job_location.lower())
+        if job_resume_without_accent is not None:
+            job_location_copy = self.string_to_list(job_location.lower())  # TODO OPTIMIZE
             for word in job_location_copy:
-                if word in resume.lower():
+                if word in job_resume_without_accent.lower():  # TODO OPTIMIZE
                     have_the_same_location = 100
                     break
 
@@ -215,10 +217,10 @@ class WordCrunchingEngine:
         cosine_similarity_value = self.truncate(self.compute_cosine_similarity(list_1, list_2))
         jaccard_similarity = self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
         score = self.truncate(
-            float(0.4) * float(cosine_similarity_value) \
-            + float(0.3) * float(jaccard_similarity) \
+            float(0.45) * float(cosine_similarity_value) \
+            + float(0.30) * float(jaccard_similarity) \
             + float(0.15) * float(words_percentage) \
-            + float(0.15) * float(have_the_same_location)
+            + float(0.10) * float(have_the_same_location)
         )
         #
         # result = {
@@ -243,9 +245,9 @@ class WordCrunchingEngine:
 
         job_enhanced_data = {
             '_id': job['_id'],
+            'jobLocation': job['jobLocation'],
             'jobName': job['jobName'],
             'jobEmployer': job['jobEmployer'],
-            'jobLocation': job['_id'],
             'jobDate': job['jobDate'],
             'jobUrl': job['jobUrl'],
             'jobDescription': job['jobDescription'],
@@ -285,6 +287,7 @@ def string_to_list(string):
 
 
 if __name__ == '__main__':
+    print("hello")
     # have_the_same_location = 0
     #
     # job_location = "București, Baia Mare, Constanta  și alte 2 orașe"
@@ -299,25 +302,25 @@ if __name__ == '__main__':
     #             print("YES")
     #             break
 
-    import pprint
-
-    # Array of JSON Objects
-    products = [{"banan": {"name": "HDD", "brand": "Samsung", "price": "$100"},
-                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
-                 },
-                {"banan": {"name": "Monitor", "brand": "Dell", "price": "$120"},
-                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
-                 },
-                {"banan": {"name": "Mouse", "brand": "Logitech", "price": "$10"},
-                 "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
-                 }]
-    '''
-    Print the sorted JSON objects in descending order
-    based on the price key value
-    '''
-    print("\nArray of JSON objects after sorting:")
-    products = sorted(products, key=lambda k: k['banan']['price'], reverse=True)
-    pprint.pprint((json.dumps(products)))
+    # import pprint
+    #
+    # # Array of JSON Objects
+    # products = [{"banan": {"name": "HDD", "brand": "Samsung", "price": "$100"},
+    #              "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+    #              },
+    #             {"banan": {"name": "Monitor", "brand": "Dell", "price": "$120"},
+    #              "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+    #              },
+    #             {"banan": {"name": "Mouse", "brand": "Logitech", "price": "$10"},
+    #              "sanana": {"casa": "mare", "bani": "multi", "masina": "smechera"}
+    #              }]
+    # '''
+    # Print the sorted JSON objects in descending order
+    # based on the price key value
+    # '''
+    # print("\nArray of JSON objects after sorting:")
+    # products = sorted(products, key=lambda k: k['banan']['price'], reverse=True)
+    # pprint.pprint((json.dumps(products)))
 
     # engine = WordCrunchingEngine()
     # translator = Translator()

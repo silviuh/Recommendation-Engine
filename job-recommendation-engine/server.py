@@ -37,11 +37,13 @@ def get_score():
     # result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['score'],
     #                                   reverse=True)
 
-    result['container_data'] = sorted(result_data, key=lambda k: k['score'],
+    result['container_data'] = sorted(result_data, key=lambda k: float(k['score']),
                                       reverse=True)
 
     # print(json.dumps(result))
     # return json.dumps(result)
+    for json in result['container_data']:
+        print(json['jobLocation'] + " " + json['score'])
     return result
 
 
