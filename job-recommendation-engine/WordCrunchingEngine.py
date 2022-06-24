@@ -244,7 +244,7 @@ class WordCrunchingEngine:
         }
 
         job_enhanced_data = {
-            # '_id': job['_id'],
+            '_id': str(job['_id']),
             'jobLocation': job['jobLocation'],
             'jobName': job['jobName'],
             'jobEmployer': job['jobEmployer'],

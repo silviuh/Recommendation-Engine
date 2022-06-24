@@ -133,6 +133,8 @@ def preprocess_jobs_for_users():
         upsert=True,
     )
 
+    print(recommended_jobs)
+
     # print(resume)
     return resume
 
