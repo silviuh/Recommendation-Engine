@@ -1,10 +1,49 @@
 import json
+from sys import path
 
+import pymongo
 from flask import Flask, request
 from textblob import TextBlob
 from WordCrunchingEngine import WordCrunchingEngine
+import textract
+from pdfminer3.layout import LAParams, LTTextBox
+from pdfminer3.pdfpage import PDFPage
+from pdfminer3.pdfinterp import PDFResourceManager
+from pdfminer3.pdfinterp import PDFPageInterpreter
+from pdfminer3.converter import PDFPageAggregator
+from pdfminer3.converter import TextConverter
+import io
+
+import os.path
+from os import path
 
 app = Flask(__name__)
+
+mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = mongo_client["job_platform"]
+col = db["users_recommended_jobs"]
+jobs_col = db["jobs"]
+
+
+def parse_pdf(file_path):
+    resource_manager = PDFResourceManager()
+    fake_file_handle = io.StringIO()
+    converter = TextConverter(resource_manager, fake_file_handle, laparams=LAParams())
+    page_interpreter = PDFPageInterpreter(resource_manager, converter)
+
+    with open(file_path, 'rb') as fh:
+        for page in PDFPage.get_pages(fh,
+                                      caching=True,
+                                      check_extractable=True):
+            page_interpreter.process_page(page)
+
+        text = fake_file_handle.getvalue()
+
+    # close open handles
+    converter.close()
+    fake_file_handle.close()
+
+    return text
 
 
 # GET requests will be blocked
@@ -42,9 +81,60 @@ def get_score():
 
     # print(json.dumps(result))
     # return json.dumps(result)
-    for json in result['container_data']:
-        print(json['jobLocation'] + " " + json['score'])
+    # for json in result['container_data']:
+    #     print(json['jobLocation'] + " " + json['score'])
     return result
+
+
+@app.route('/preprocess-jobs-for-users', methods=['POST'])
+def preprocess_jobs_for_users():
+    request_data = request.get_json()
+    result = {
+        "container_data": []
+    }
+    result_data = []
+
+    resume = ""
+    if path.exists(request_data["resumePath"]):
+        ext = os.path.splitext(str(request_data["resumePath"]))[-1].lower()
+        if ext == '.pdf':
+            resume = parse_pdf(request_data["resumePath"])
+        elif ext == '.txt':
+            with open(request_data["resumePath"], 'r') as f:
+                resume = f.read()  # Read whole file in the file_content string
+    else:
+        return "The user resume file does not exist"
+
+    raw_jobs = jobs_col.find()
+
+    for job in raw_jobs:
+        result_data.append(
+            word_crunching_engine.matching_keywords(job, resume))
+
+    recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
+                              reverse=True)
+
+    # print(recommended_jobs)
+
+    col.update_one(
+        filter={
+            "email": request_data["email"],
+        },
+        update={
+            '$setOnInsert': {
+                'email': request_data["email"],
+                'jobs': recommended_jobs
+                # 'jobs': [json.dumps(job) for job in jobs]
+            },
+            # '$set': {
+            #     'last_update_date': now,
+            # },
+        },
+        upsert=True,
+    )
+
+    # print(resume)
+    return resume
 
 
 if __name__ == '__main__':
