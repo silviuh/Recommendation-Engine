@@ -115,6 +115,8 @@ def preprocess_jobs_for_users():
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
 
+    for job in recommended_jobs:
+        print(job["jobName"] + ": " + job["score"])
 
     # print(recommended_jobs)
 

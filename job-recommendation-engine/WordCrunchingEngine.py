@@ -218,8 +218,8 @@ class WordCrunchingEngine:
         jaccard_similarity = self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
         score = self.truncate(
             float(0.45) * float(cosine_similarity_value) \
-            + float(0.30) * float(jaccard_similarity) \
-            + float(0.15) * float(words_percentage) \
+            + float(0.35) * float(jaccard_similarity) \
+            + float(0.10) * float(words_percentage) \
             + float(0.10) * float(have_the_same_location)
         )
         #
