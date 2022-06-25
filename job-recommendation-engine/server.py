@@ -88,6 +88,7 @@ def get_score():
 
 @app.route('/preprocess-jobs-for-users', methods=['POST'])
 def preprocess_jobs_for_users():
+    print("GETS HERE")
     request_data = request.get_json()
     result = {
         "container_data": []
@@ -114,6 +115,7 @@ def preprocess_jobs_for_users():
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
 
+
     # print(recommended_jobs)
 
     col.update_one(
@@ -121,11 +123,11 @@ def preprocess_jobs_for_users():
             "email": request_data["email"],
         },
         update={
-            '$setOnInsert': {
+            '$set': {
                 'email': request_data["email"],
                 'jobs': recommended_jobs
                 # 'jobs': [json.dumps(job) for job in jobs]
-            },
+            }
             # '$set': {
             #     'last_update_date': now,
             # },
@@ -133,7 +135,7 @@ def preprocess_jobs_for_users():
         upsert=True,
     )
 
-    print(recommended_jobs)
+    # print(recommended_jobs)
 
     # print(resume)
     return resume
