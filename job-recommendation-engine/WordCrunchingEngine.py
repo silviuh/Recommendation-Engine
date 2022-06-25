@@ -251,7 +251,8 @@ class WordCrunchingEngine:
             'jobDate': job['jobDate'],
             'jobUrl': job['jobUrl'],
             'jobDescription': job['jobDescription'],
-            'score': score
+            'jobImageURL': job['jobImageURL'],
+            'score': score,
         }
 
         # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data

@@ -88,7 +88,7 @@ def get_score():
 
 @app.route('/preprocess-jobs-for-users', methods=['POST'])
 def preprocess_jobs_for_users():
-    print("GETS HERE")
+    print("[STARTS] RECOMMENDING")
     request_data = request.get_json()
     result = {
         "container_data": []
@@ -138,6 +138,7 @@ def preprocess_jobs_for_users():
     # print(recommended_jobs)
 
     # print(resume)
+    print("[ENDS] RECOMMENDING")
     return resume
 
 
