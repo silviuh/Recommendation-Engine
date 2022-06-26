@@ -168,18 +168,27 @@ class WordCrunchingEngine:
         return list_res
 
     def matching_keywords(self, job, resume):
-        have_the_same_location = 0
+        common_keywords_in_job_title = 0
+        total_words_in_the_job_title = 0
+        common_keywords_in_job_title_percentage = 0
+
+        have_the_same_location_score = 0
         job_location = unidecode.unidecode(job['jobLocation'])  # TODO OPTIMIZE
+        job_name = self.string_to_list(unidecode.unidecode(job['jobName']).lower())
         job_location_copy = job_location
         job_posting = job['jobDescription']
-        job_resume_without_accent = unidecode.unidecode(resume)  # TODO OPTIMIZE
+        job_resume_without_accent = unidecode.unidecode(resume).lower()  # TODO OPTIMIZE
 
         if job_resume_without_accent is not None:
             job_location_copy = self.string_to_list(job_location.lower())  # TODO OPTIMIZE
             for word in job_location_copy:
-                if word in job_resume_without_accent.lower():  # TODO OPTIMIZE
-                    have_the_same_location = 100
+                if word in job_resume_without_accent:  # TODO OPTIMIZE
+                    have_the_same_location_score = 100
                     break
+            for word in job_name:
+                total_words_in_the_job_title += 1
+                if word in job_resume_without_accent:
+                    common_keywords_in_job_title += 1
 
         # print(str(have_the_same_location) + ' ' + job_location)
         # try:
@@ -210,19 +219,48 @@ class WordCrunchingEngine:
         list_1 = self.preprocess_text(job_posting, self.which_stopwords)
         list_2 = self.preprocess_text(resume, self.which_stopwords)
 
+        common_keywords_in_job_title_percentage = (common_keywords_in_job_title / total_words_in_the_job_title) * 100
         common_keywords = self.common_words(list_1, list_2)
-
         common_words = len(common_keywords)
         words_percentage = self.truncate(len(common_keywords) / len(list_2) * 100)
         cosine_similarity_value = self.truncate(self.compute_cosine_similarity(list_1, list_2))
         jaccard_similarity = self.truncate(self.jaccard_similarity(list_1, list_2) * 100)
+
+        cosine_similarity_multiply_coefficient = 0.0
+        have_the_same_location_multiply_coefficient = 0.0
+        common_keywords_in_job_title_coefficient = 0.15
+
+        if float(
+                cosine_similarity_value) <= 5:
+            have_the_same_location_multiply_coefficient = 0.02
+        else:
+            have_the_same_location_multiply_coefficient = 0.10
+
+        cosine_similarity_multiply_coefficient = 0.55 - have_the_same_location_multiply_coefficient
+        jaccard_similarity_multiply_coefficient = 0.20
+        words_percentage_multiply_coefficient = 1.00 \
+                                                - cosine_similarity_multiply_coefficient \
+                                                - jaccard_similarity_multiply_coefficient \
+                                                - have_the_same_location_multiply_coefficient - common_keywords_in_job_title_coefficient
+
+        # score = self.truncate(
+        #     float(cosine_similarity_multiply_coefficient) * float(cosine_similarity_value) \
+        #     + float(jaccard_similarity_multiply_coefficient) * float(jaccard_similarity) \
+        #     + float(words_percentage_multiply_coefficient) * float(words_percentage) \
+        #     + float(have_the_same_location_multiply_coefficient) * float(have_the_same_location_score)
+        #     + float(common_keywords_in_job_title_coefficient) * float(common_keywords_in_job_title_percentage)
+        # )
+
+        # score = self.truncate(
+        #     float(0.60) * float(cosine_similarity_value) +
+        #     float(0.30) * float(jaccard_similarity) +
+        #     float(0.10) * float(have_the_same_location_score)
+        # )
+
         score = self.truncate(
-            float(0.45) * float(cosine_similarity_value) \
-            + float(0.35) * float(jaccard_similarity) \
-            + float(0.10) * float(words_percentage) \
-            + float(0.10) * float(have_the_same_location)
-        )
-        #
+            float(1.00) * float(cosine_similarity_value))
+
+        # #
         # result = {
         #     "job_ID": job_id,
         #     "job_Location": job_location,
@@ -253,6 +291,8 @@ class WordCrunchingEngine:
             'jobDescription': job['jobDescription'],
             'jobImageURL': job['jobImageURL'],
             'score': score,
+            'title_common_nr_words': common_keywords_in_job_title,
+            'title_common_percentage': common_keywords_in_job_title_percentage,
         }
 
         # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data

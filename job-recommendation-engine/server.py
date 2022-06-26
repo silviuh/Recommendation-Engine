@@ -107,6 +107,7 @@ def preprocess_jobs_for_users():
         return "The user resume file does not exist"
 
     raw_jobs = jobs_col.find()
+    # print("JOBS length: " + str(len(list(raw_jobs))))
 
     for job in raw_jobs:
         result_data.append(
@@ -116,7 +117,8 @@ def preprocess_jobs_for_users():
                               reverse=True)
 
     for job in recommended_jobs:
-        print(job["jobName"] + ": " + job["score"])
+        print(job["jobName"] + ": " + job["score"] + " | " + str(job["title_common_nr_words"]) + " | " + str(job[
+                                                                                                                 "title_common_percentage"]))
 
     # print(recommended_jobs)
 
