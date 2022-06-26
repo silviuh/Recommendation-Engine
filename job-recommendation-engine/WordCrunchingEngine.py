@@ -243,13 +243,13 @@ class WordCrunchingEngine:
                                                 - jaccard_similarity_multiply_coefficient \
                                                 - have_the_same_location_multiply_coefficient - common_keywords_in_job_title_coefficient
 
-        # score = self.truncate(
-        #     float(cosine_similarity_multiply_coefficient) * float(cosine_similarity_value) \
-        #     + float(jaccard_similarity_multiply_coefficient) * float(jaccard_similarity) \
-        #     + float(words_percentage_multiply_coefficient) * float(words_percentage) \
-        #     + float(have_the_same_location_multiply_coefficient) * float(have_the_same_location_score)
-        #     + float(common_keywords_in_job_title_coefficient) * float(common_keywords_in_job_title_percentage)
-        # )
+        score = self.truncate(
+            float(cosine_similarity_multiply_coefficient) * float(cosine_similarity_value) \
+            + float(jaccard_similarity_multiply_coefficient) * float(jaccard_similarity) \
+            + float(words_percentage_multiply_coefficient) * float(words_percentage) \
+            + float(have_the_same_location_multiply_coefficient) * float(have_the_same_location_score)
+            + float(common_keywords_in_job_title_coefficient) * float(common_keywords_in_job_title_percentage)
+        )
 
         # score = self.truncate(
         #     float(0.60) * float(cosine_similarity_value) +
@@ -257,8 +257,8 @@ class WordCrunchingEngine:
         #     float(0.10) * float(have_the_same_location_score)
         # )
 
-        score = self.truncate(
-            float(1.00) * float(cosine_similarity_value))
+        # score = self.truncate(
+        #     float(1.00) * float(cosine_similarity_value))
 
         # #
         # result = {

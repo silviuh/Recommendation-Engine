@@ -116,9 +116,10 @@ def preprocess_jobs_for_users():
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
 
-    for job in recommended_jobs:
-        print(job["jobName"] + ": " + job["score"] + " | " + str(job["title_common_nr_words"]) + " | " + str(job[
-                                                                                                                 "title_common_percentage"]))
+    for idx, job in enumerate(recommended_jobs):
+        print("[ " + str(idx) + " ]" + " " + job["jobName"] + ": " + job["score"] + " | " + str(
+            job["title_common_nr_words"]) + " | " + str(job[
+                                                            "title_common_percentage"]))
 
     # print(recommended_jobs)
 
