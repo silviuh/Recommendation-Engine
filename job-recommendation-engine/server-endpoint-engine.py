@@ -5,6 +5,7 @@ from sys import path
 from sys import argv
 
 import pymongo
+from crontab import CronTab
 from flask import Flask, request
 from textblob import TextBlob
 from WordCrunchingEngine import WordCrunchingEngine
@@ -118,6 +119,4 @@ def preprocess_jobs_for_users(email, resume_path):
 
 if __name__ == '__main__':
     word_crunching_engine = WordCrunchingEngine()
-    print(str(argv[1]))
-    print(str(argv[2]))
     preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
