@@ -4,6 +4,7 @@ from sys import path
 import pymongo
 from crontab import CronTab
 from flask import Flask, request
+from googletrans import Translator
 from textblob import TextBlob
 from WordCrunchingEngine import WordCrunchingEngine
 import textract
@@ -24,6 +25,7 @@ mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = mongo_client["job_platform"]
 col = db["users_recommended_jobs"]
 jobs_col = db["jobs"]
+translator = Translator()
 
 
 def parse_pdf(file_path):
@@ -95,6 +97,8 @@ def preprocess_jobs_for_users():
         "container_data": []
     }
     result_data = []
+    resume_language = ''
+    resume_detected_language = ''
 
     resume = ""
     if path.exists(request_data["resumePath"]):
@@ -107,12 +111,22 @@ def preprocess_jobs_for_users():
     else:
         return "The user resume file does not exist"
 
+    resume_detected_language = translator.detect(str(resume))
+    ro_resume = ''
+    en_resume = ''
+    if resume_detected_language.lang == "ro":
+        ro_resume = resume
+        en_resume = translator.translate(resume, dest='en').text
+    elif resume_detected_language == "en":
+        ro_resume = translator.translate(resume, dest='ro').text
+        en_resume = resume
+
     raw_jobs = jobs_col.find()
     # print("JOBS length: " + str(len(list(raw_jobs))))
 
     for job in raw_jobs:
         result_data.append(
-            word_crunching_engine.matching_keywords(job, resume))
+            word_crunching_engine.matching_keywords(job, resume, ro_resume, en_resume, resume_detected_language))
 
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
@@ -167,7 +181,7 @@ def register_recommend_job_for_user():
             command=script_command,
             comment=email)
 
-        new_user_job.minute.every(1)
+        new_user_job.minute.every(2)
 
         for job in users_cron:
             print(job)
