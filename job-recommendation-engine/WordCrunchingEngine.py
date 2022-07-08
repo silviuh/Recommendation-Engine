@@ -167,19 +167,20 @@ class WordCrunchingEngine:
         list_res = (r.split(string))
         return list_res
 
-    def matching_keywords(self, job, resume, ro_resume, en_resume, resume_detected_language):
+    def matching_keywords(self, job, resume):
+        # def matching_keywords(self, job, resume, ro_resume, en_resume, resume_detected_language):
 
-        try:
-            if not (job == "" or job is None or resume == "" or resume is None):
-                job_detected_langauge = self.translator.detect(str(job[:200]))
-                if job_detected_langauge.lang == "ro":
-                    self.which_stopwords = self.romanian_stopwords
-                    resume = ro_resume
-                elif job_detected_langauge.lang == "en":
-                    self.which_stopwords = self.english_stopwords
-                    resume = en_resume
-        except Exception as e:
-            self.which_stopwords = self.english_stopwords
+        # try:
+        #     if not (job == "" or job is None or resume == "" or resume is None):
+        #         job_detected_langauge = self.translator.detect(str(job[:200]))
+        #         if job_detected_langauge.lang == "ro":
+        #             self.which_stopwords = self.romanian_stopwords
+        #             resume = ro_resume
+        #         elif job_detected_langauge.lang == "en":
+        #             self.which_stopwords = self.english_stopwords
+        #             resume = en_resume
+        # except Exception as e:
+        #     self.which_stopwords = self.english_stopwords
 
         common_keywords_in_job_title = 0
         total_words_in_the_job_title = 0

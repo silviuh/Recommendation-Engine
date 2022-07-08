@@ -699,3 +699,91 @@ Traceback (most recent call last):
   File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
     word_crunching_engine.matching_keywords(job, resume))
 TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ nitaAsistenta@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ mamaboss@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ lupusoru@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ nitaAsistenta@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ managerSales@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ mamaboss@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ lupusoru@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ nitaAsistenta@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ managerSales@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ mamaboss@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ lupusoruAlex@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ lupusoruAlex@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 87, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume))
+TypeError: matching_keywords() missing 3 required positional arguments: 'ro_resume', 'en_resume', and 'resume_detected_language'
+[ lupusoruAlex@gmail.com ]: START
+[ lupusoruAlex@gmail.com ]: END
+[ lupusoruAlex@gmail.com ]: START
+[ lupusoruAlex@gmail.com ]: END
