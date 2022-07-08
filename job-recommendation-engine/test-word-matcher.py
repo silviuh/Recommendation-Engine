@@ -7,10 +7,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 wn = nltk.WordNetLemmatizer()  # Lemmatizer
-stopwords = nltk.corpus.stopwords.words('english')  # Stopwords in English language
+stopwords = nltk.corpus.stopwords.words('english')
 
-
-# stopwords = nltk.corpus.stopwords.words('romanian')  # Stopwords in English language
 
 def concat(s):
     '''Concatenate words like "D A T A  S C I E N C E" to get "DATA SCIENCE"'''
@@ -27,18 +25,12 @@ def concat(s):
 
 
 def preprocess_text(document):
-    # convert to lower case
     document = str(document).lower()
-    # replace unusual quotes with '
     document = document.replace("′", "'").replace("’", "'")
-    # replace new line with space
     document = document.replace("\n", " ")
-    # concatenate
     document = concat(document)
-    # remove links
     document = re.sub(r"http\S+", "", document)
 
-    # convert education degrees like B.Tech or BTech to a specified form
     document = re.sub(r"\s+b[.]?[ ]?tech[(. /]{1}", " btech bachelor of technology ", document)
     document = re.sub(r"\s+m[.]?[ ]?tech[(. ]{1}", " mtech master of technology ", document)
     document = re.sub(r"\s+b[.]?[ ]?a[(. ]{1}", " ba bachelor of arts ", document)
@@ -52,19 +44,15 @@ def preprocess_text(document):
     document = re.sub(r"\s+b[.]?[ ]?b[.]?[ ]?a[(. ]{1}", " bba bachelor of business administration ", document)
     document = re.sub(r"\s+m[.]?[ ]?b[.]?[ ]?a[(. ]{1}", " mba master of business administration ", document)
 
-    # convert skills with special symbols to words
     document = document.replace("c++", "cplusplus")
     document = document.replace("c#", "csharp")
     document = document.replace(".net", "dotnet")
 
-    # replace non alpha numeric character with space
     document = re.sub('\W', ' ', document)
 
-    # if remove stop words flag set then remove them
     z = []
     for i in document.split():
         if i not in stopwords:
-            # use lemmatizer to reduce the inflections
             i = wn.lemmatize(i)
             z.append(i)
     z = ' '.join(z)
@@ -75,36 +63,15 @@ def preprocess_text(document):
 
 
 def clean_the_text(text):
-    # Replace non-word characters with empty space
-    # text = re.sub('[^A-Za-z0-9\s]', ' ', text)
-
-    # Remove punctuation
     text = ''.join([word for word in text if word not in string.punctuation])
-
-    # Bring text to lower case
     text = text.lower()
-
-    # Tokenize the text
     tokens = re.split('\W+', text)
-
-    # Remove stopwords
     text = [word for word in tokens if word not in stopwords]
-
-    # Lemmatize the words
     text = [wn.lemmatize(word) for word in text]
-
-    # Return text
     return text
 
 
 def common_words(l_1, l_2):
-    """
-    Input:
-        l_1: list of words
-        l_2: list_of words
-    Output:
-        matching_words: set of common words exist in l_1 and l_2
-    """
     matching_words = set.intersection(set(l_1), set(l_2))
     return matching_words
 
@@ -116,14 +83,8 @@ def jaccard_similarity(list1, list2):
 
 
 def compute_cosine_similarity(list1, list2):
-    # text_list = [cvContent, jobContent]
     text_list = [' '.join(list2), ' '.join(list1)]
-
-    # print(text_list)
-
-    # cv = CountVectorizer()
-    cv = TfidfVectorizer()  # tfid is better because it penalizes the most recurring words regarded as stopwords
-    # in my document
+    cv = TfidfVectorizer()
     count_matrix = cv.fit_transform(text_list)
     match_percentage = cosine_similarity(count_matrix)[0][1] * 100
     match_percentage = round(match_percentage, 2)
@@ -133,8 +94,6 @@ def compute_cosine_similarity(list1, list2):
 
 def get_frequency_table(list_1, list_2):
     freq_table = {}
-
-    # Create frequency table for the words that are not in the list_2 but in the list_1
     for word in list_1:
         if not word in list_2:
             if word in freq_table:
@@ -142,17 +101,12 @@ def get_frequency_table(list_1, list_2):
             else:
                 freq_table[word] = 1
 
-    # Sort the dictionary by values in descending order
     freq_table = dict(sorted(freq_table.items(), key=lambda item: item[1], reverse=True))
 
-    # Create a pandas dataframe from the dictionary
     pd.set_option('display.max_rows', 300)
     df = pd.DataFrame.from_dict(freq_table.items())
 
-    # Rename columns
     df.columns = ['word', 'count']
-
-    # print('You can choose some words in the job posting from the table below to add your resume.')
     return df
 
 
@@ -168,13 +122,9 @@ def matching_keywords(job_posting, resume):
 
     print(list_1)
     print(list_2)
-
-    # Apply common_words function to the lists
     common_keywords = common_words(list_1, list_2)
 
-    # Print number of matching words
     print('The number of common words in your resume and the job posting is: {}'.format(len(common_keywords)), '\n')
-    # Print the percentage of matching words
     print('{:.0%} of the words in your resume are in the job description'.format(len(common_keywords) / len(list_2)),
           '\n')
     print('{0} % is the value of the [COSINE] percentage computation on your set of lists'.format(
@@ -185,9 +135,7 @@ def matching_keywords(job_posting, resume):
         '\n')
     print('the frequency table is: ')
     print(get_frequency_table(list_1, list_2))
-    # Create an empty dictionary
 
 
 if __name__ == '__main__':
-    # print(matching_keywords('data/job_posting4.txt', 'data/Resume1.txt'))
     matching_keywords('data/job_posting4.txt', 'data/Resume1.txt')

@@ -42,7 +42,6 @@ def parse_pdf(file_path):
 
         text = fake_file_handle.getvalue()
 
-    # close open handles
     converter.close()
     fake_file_handle.close()
 
@@ -50,11 +49,6 @@ def parse_pdf(file_path):
 
 
 def preprocess_jobs_for_users(email, resume_path):
-    # logger = logging.getLogger()
-    # handler = logging.FileHandler('user-cronjobs-logs/' + email + ".log")
-    # logger.addHandler(handler)
-    # logger.error('Our First Log Message')
-
     Log_Format = "%(levelname)s %(asctime)s - %(message)s"
     logging.basicConfig(
         filename="/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/user-cronjobs-logs/" + email + ".log",
@@ -74,13 +68,11 @@ def preprocess_jobs_for_users(email, resume_path):
             resume = parse_pdf(resume_path)
         elif ext == '.txt':
             with open(resume_path, 'r') as f:
-                resume = f.read()  # Read whole file in the file_content string
+                resume = f.read()
     else:
         print("The user resume file does not exist")
-        # return "The user resume file does not exist"
 
     raw_jobs = jobs_col.find()
-    # print("JOBS length: " + str(len(list(raw_jobs))))
 
     for job in raw_jobs:
         result_data.append(
@@ -104,7 +96,6 @@ def preprocess_jobs_for_users(email, resume_path):
             '$set': {
                 'email': email,
                 'jobs': recommended_jobs
-                # 'jobs': [json.dumps(job) for job in jobs]
             }
             # '$set': {
             #     'last_update_date': now,

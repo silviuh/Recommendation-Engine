@@ -42,14 +42,12 @@ def parse_pdf(file_path):
 
         text = fake_file_handle.getvalue()
 
-    # close open handles
     converter.close()
     fake_file_handle.close()
 
     return text
 
 
-# GET requests will be blocked
 @app.route('/get-score', methods=['POST'])
 def get_score():
     request_data = request.get_json()
@@ -59,33 +57,13 @@ def get_score():
     result_data = []
 
     for job in request_data['jobPosting']:
-        # if job['jobDescription'] == '' or request_data['resume'] == '':
-        #     continue
-
-        # result_data.append(
-        #     word_crunching_engine.matching_keywords(jobDescription['jobDescription'], request_data['resume'],
-        #                                             request_data['language'], jobDescription['_id'],
-        #                                             jobDescription['jobName'], jobDescription['jobLocation']))
         result_data.append(
             word_crunching_engine.matching_keywords(job, request_data[
-                'resume']))  # receives dict, converts into json with dumps
-        # result_data.append(json.dumps(
-        #     word_crunching_engine.matching_keywords(job, request_data[
-        #         'resume'])))  # receives dict, converts into json with dumps
-
-    # result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['result_data']['score'],
-    #                         reverse=True)  # converts into dict for data processing - sorting with loads
-
-    # result['container_data'] = sorted(result_data, key=lambda k: json.loads(k)['score'],
-    #                                   reverse=True)
+                'resume']))
 
     result['container_data'] = sorted(result_data, key=lambda k: float(k['score']),
                                       reverse=True)
 
-    # print(json.dumps(result))
-    # return json.dumps(result)
-    # for json in result['container_data']:
-    #     print(json['jobLocation'] + " " + json['score'])
     return result
 
 
@@ -138,8 +116,6 @@ def preprocess_jobs_for_users():
             job["title_common_nr_words"]) + " | " + str(job[
                                                             "title_common_percentage"]))
 
-    # print(recommended_jobs)
-
     col.update_one(
         filter={
             "email": request_data["email"],
@@ -148,7 +124,6 @@ def preprocess_jobs_for_users():
             '$set': {
                 'email': request_data["email"],
                 'jobs': recommended_jobs
-                # 'jobs': [json.dumps(job) for job in jobs]
             }
             # '$set': {
             #     'last_update_date': now,
@@ -157,9 +132,6 @@ def preprocess_jobs_for_users():
         upsert=True,
     )
 
-    # print(recommended_jobs)
-
-    # print(resume)
     print("[ENDS] RECOMMENDING")
     return resume
 
