@@ -1,0 +1,93 @@
+Charles K. Sorensen, MTA
+
+Python Developer
+
+3689 Parrish Avenue
+
+Victoria, TX 77901
+
+830-994-8344
+
+charlesksorensen@gmail.com
+
+linkedin.com/in/charlessorensen
+
+ 
+
+Summary
+
+ 
+
+Motivated PCPP1 and MTA-certified Python developer and professional scrum master with 6+ years of experience. Inclined to bring effectiveness to TechNo’s front-end development. Driven by passion and innovation, designed and introduced a new and IAC-award-worthy feature to the MailSent tool. Highly skilled in Python coding and scripting, Django framework, and communication.
+
+ 
+
+Experience
+
+ 
+
+Python Developer
+
+PyMe, Victoria, TX
+
+March 2015-present
+
+Handled programming tasks for and maintained 7 internal websites with a high success rate (97%) in product update deployment.
+Worked on high-impact projects, e.g., content aggregator and expense tracker, delivering solutions with lower than 20% code churn.
+Developed a marketing lead MySQL database, collecting, categorizing, and filtering leads from various stakeholders, i.e., www, social media channels, or newsletters.
+Led sprint planning meetings and divided tasks between a 15-person project team.
+Tutored at three high schools every year, teaching young kids how to code in Python.
+Key achievement: Designed a new feature for the company’s email marketing tool (MailSent) in 7 Active Days, contributing to the marketing department’s win in the IAC award competition in the Best Email Message Campaign category.
+
+ 
+
+Data Scientist
+
+PyMe, Victoria, TX
+
+April 2012-February 2015
+
+Automated and optimized collecting data using SQL, reaching over a 35% system’s response time boost.
+Collaborated cross-departmentally on RPA to streamline issue management and migrate the current environments to the cloud, reducing the investment risk by 48%.
+ 
+
+Education
+
+ 
+
+2011 M.S. in Engineering
+
+University of Texas, Austin, TX
+
+ 
+
+Skills
+
+ 
+
+Python, JavaScript, CSS3, HTML5, SQL
+ORM libraries
+Web frameworks: Django
+MVC and MVT Architecture
+Design skills
+Problem-solving skills
+Communication skills
+Data visualization
+Agile frameworks
+ 
+
+Courses and Certificates
+
+ 
+
+PCPP1 – Certified Professional in Python
+MTA 98-381 – Microsoft Technical Associate
+PSM II Assessment Certificate – Professional Scrum Master
+ 
+
+Conferences
+
+ 
+
+PyCon, every-year attendee since 2018
+DjangoCon, 2020
