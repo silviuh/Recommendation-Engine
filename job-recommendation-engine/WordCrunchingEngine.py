@@ -35,11 +35,31 @@ class WordCrunchingEngine:
         return s
 
     def preprocess_text(self, document, stopwords):
+        # convert to lower case
         document = str(document).lower()
+        # replace unusual quotes with '
         document = document.replace("′", "'").replace("’", "'")
+        # replace new line with space
         document = document.replace("\n", " ")
+        # concatenate
         document = self.concat(document)
+        # remove links
+        # remove links
         document = re.sub(r"http\S+", "", document)
+
+        # remove mentions
+        document = re.sub("@\S+", " ", document)
+
+        # remove hashtags
+        document = re.sub("#\S+", " ", document)
+
+        # remove tiks
+        document = re.sub("\'\w+", '', document)
+
+        # remove numbers
+        document = re.sub(r'\w*\d+\w*', '', document)
+
+        # convert education degrees like B.Tech or BTech to a specified form
         document = re.sub(r"\s+b[.]?[ ]?tech[(. /]{1}", " btech bachelor of technology ", document)
         document = re.sub(r"\s+m[.]?[ ]?tech[(. ]{1}", " mtech master of technology ", document)
         document = re.sub(r"\s+b[.]?[ ]?a[(. ]{1}", " ba bachelor of arts ", document)
@@ -52,20 +72,26 @@ class WordCrunchingEngine:
         document = re.sub(r"\s+m[.]?[ ]?c[.]?[ ]?a[(. ]{1}", " mca master of computer applications ", document)
         document = re.sub(r"\s+b[.]?[ ]?b[.]?[ ]?a[(. ]{1}", " bba bachelor of business administration ", document)
         document = re.sub(r"\s+m[.]?[ ]?b[.]?[ ]?a[(. ]{1}", " mba master of business administration ", document)
+
+        # convert skills with special symbols to words
         document = document.replace("c++", "cplusplus")
         document = document.replace("c#", "csharp")
         document = document.replace(".net", "dotnet")
+
+        # replace non alpha numeric character with space
         document = re.sub('\W', ' ', document)
 
+        # if remove stop words flag set then remove them
         z = []
         for i in document.split():
             if i not in stopwords:
+                # use lemmatizer to reduce the inflections
                 i = self.wn.lemmatize(i)
                 z.append(i)
         z = ' '.join(z)
 
+        # strip white spaces
         z = z.strip()
-
         return list(z.split(" "))
 
     def clean_the_text(self, text, stopwords):
@@ -155,32 +181,6 @@ class WordCrunchingEngine:
                 if word in job_resume_without_accent:
                     common_keywords_in_job_title += 1
 
-        # print(str(have_the_same_location) + ' ' + job_location)
-        # try:
-        #     if not (job_posting == "" or job_posting is None or
-        #             resume == "" or resume is None):
-        #         resume_detected_language = self.translator.detect(str(resume))
-        #         job_description_detected_language = self.translator.detect(str(job_posting))
-        #
-        #         if resume_detected_language.lang != job_description_detected_language.lang:
-        #             if resume_detected_language.lang == "ro":
-        #                 resume = self.translator.translate(resume, dest='en').text
-        #             elif job_description_detected_language.lang == "ro":
-        #                 job_posting = self.translator.translate(job_posting, dest='en').text
-        #
-        #         if resume_detected_language.lang == "ro":
-        #             self.which_stopwords = self.romanian_stopwords
-        #         elif resume_detected_language.lang == "en":
-        #             self.which_stopwords = self.english_stopwords
-        # except Exception as e:
-        #     print('Failed to: ' + str(e))
-
-        # with open(job_posting, 'r') as f:
-        #     job_posting = f.read()
-        #
-        # with open(resume, 'r') as f:
-        #     resume = f.read()
-
         list_1 = self.preprocess_text(job_posting, self.which_stopwords)
         list_2 = self.preprocess_text(resume, self.which_stopwords)
 
@@ -225,19 +225,6 @@ class WordCrunchingEngine:
         # score = self.truncate(
         #     float(1.00) * float(cosine_similarity_value))
 
-        # #
-        # result = {
-        #     "job_ID": job_id,
-        #     "job_Location": job_location,
-        #     "job_name": job_name,
-        #     "common_words": common_words,
-        #     "words_percentage": words_percentage,
-        #     "cosine_similarity": cosine_similarity_value,
-        #     "jaccard_similarity": jaccard_similarity,
-        #     "score": score
-        #     # "frequency_table": self.get_frequency_table(list_1, list_2)
-        # }
-
         result_data = {
             "common_words": common_words,
             "words_percentage": words_percentage,
@@ -261,11 +248,6 @@ class WordCrunchingEngine:
         }
 
         # TODO verifica aici daca trebuie sa faci json.dumps() de job si de result_data
-        # result = {
-        #     "job": job,
-        #     "result_data": result_data
-        # }
-        # # return result
 
         return job_enhanced_data
 

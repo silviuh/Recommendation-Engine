@@ -8,7 +8,7 @@ class CronAssigner:
         return
 
     def register_recommend_job_for_user(self, request_data):
-        request_data = request.get_json()
+        # request_data = request.get_json()
         email = str(request_data["email"])
         pdf_path = str(request_data["resumePath"])
 
@@ -37,9 +37,9 @@ if __name__ == '__main__':
     cronAssigner = CronAssigner()
     request_data = {
         "email": "andrada@gmail.com",
-        # "resumePath": "`/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/job-portal/resumes/andrada/DocumentatieLicenta_MunteanuLetitia.pdf"
+        "resumePath": "/Users/silviuh1/workspace/dev/facultate/licenta/job-portal/resumes/andrada/DocumentatieLicenta_MunteanuLetitia.pdf"
         # "resumePath": "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/resume-extensions-test/CV_ROTARU_GEORGE.docx"
         # "resumePath": "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/resume-extensions-test/DocumentatieLicenta_MunteanuLetitia-corectat.pdf"
         # "resumePath": "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/resume-extensions-test/python-dev-scientist.txt"
     }
-    print(cronAssigner.register_recommend_job_for_user())
+    print(cronAssigner.register_recommend_job_for_user(request_data))
