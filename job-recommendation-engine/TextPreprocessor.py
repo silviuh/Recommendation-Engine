@@ -114,35 +114,36 @@ class TextPreprocessor:
 
         return str(match_percentage)
 
-    def translate(self, job, resume):
-        resume_detected_language = translator.detect(str(resume))
+    def translate(self, job, resume, english_resume):
         lemmatization_lang = "en"
-        ro_resume = ''
-        en_resume = ''
-        stopwords = None
+        stopwords = self.english_stopwords
 
-        if resume_detected_language.lang == "ro":
-            ro_resume = resume
-            en_resume = translator.translate(resume, dest='en').text
-        elif resume_detected_language.lang == "en":
-            ro_resume = translator.translate(resume, dest='ro').text
-            en_resume = resume
+        # if resume_detected_language == "ro":
+        #     ro_resume = resume
+        #     en_resume = translator.translate(resume, dest='en').text
+        #     en_resume = english_resume
+        # elif resume_detected_language == "en":
+        #     ro_resume = translator.translate(resume, dest='ro').text
+        #     en_resume = resume
 
         try:
             if not (job == "" or job is None or resume == "" or resume is None):
-                job_detected_langauge = self.translator.detect(str(job))
+                job_detected_langauge = self.translator.detect(str(job[300]))
                 if job_detected_langauge.lang == "ro":
                     stopwords = self.romanian_stopwords
-                    resume = ro_resume
                     lemmatization_lang = "ro"
                 elif job_detected_langauge.lang == "en":
                     stopwords = self.english_stopwords
-                    resume = en_resume
                     lemmatization_lang = "en"
         except Exception as e:
             self.which_stopwords = self.english_stopwords
+            stopwords = self.english_stopwords
 
-        return {"resume": resume, "job": job, "stopwords": stopwords, "lemmatization_lang": lemmatization_lang}
+        if lemmatization_lang == "ro":
+            return {"resume": resume, "job": job, "stopwords": stopwords, "lemmatization_lang": lemmatization_lang}
+        elif lemmatization_lang == "en":
+            return {"resume": english_resume, "job": job, "stopwords": stopwords,
+                    "lemmatization_lang": lemmatization_lang}
 
 
 if __name__ == '__main__':

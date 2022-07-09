@@ -89,15 +89,15 @@ def preprocess_jobs_for_users():
     else:
         return "The user resume file does not exist"
 
-    # resume_detected_language = translator.detect(str(resume))
-    # ro_resume = ''
-    # en_resume = ''
-    # if resume_detected_language.lang == "ro":
-    #     ro_resume = resume
-    #     en_resume = translator.translate(resume, dest='en').text
-    # elif resume_detected_language == "en":
-    #     ro_resume = translator.translate(resume, dest='ro').text
-    #     en_resume = resume
+    resume_detected_language = translator.detect(str(resume))
+    ro_resume = ''
+    en_resume = ''
+    if resume_detected_language.lang == "ro":
+        ro_resume = resume
+        en_resume = translator.translate(resume, dest='en').text
+    elif resume_detected_language.lang == "en":
+        ro_resume = translator.translate(resume, dest='ro').text
+        en_resume = resume
 
     raw_jobs = jobs_col.find()
     # print("JOBS length: " + str(len(list(raw_jobs))))
@@ -106,7 +106,7 @@ def preprocess_jobs_for_users():
         # result_data.append(
         #     word_crunching_engine.matching_keywords(job, resume, ro_resume, en_resume, resume_detected_language))
         result_data.append(
-            word_crunching_engine.matching_keywords(job, resume))
+            word_crunching_engine.matching_keywords(job, resume, ro_resume, en_resume))
 
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)

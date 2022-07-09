@@ -11,7 +11,12 @@ import string
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from textblob import TextBlob
+import simplemma
 from string import punctuation
+
+from TextPreprocessor import TextPreprocessor
+
+text_preprocessor = TextPreprocessor()
 
 
 class WordCrunchingEngine:
@@ -144,8 +149,8 @@ class WordCrunchingEngine:
         list_res = (r.split(string))
         return list_res
 
-    def matching_keywords(self, job, resume):
-        # def matching_keywords(self, job, resume, ro_resume, en_resume, resume_detected_language):
+    # def matching_keywords(self, job, resume):
+    def matching_keywords(self, job, resume, ro_resume, en_resume):
 
         # try:
         #     if not (job == "" or job is None or resume == "" or resume is None):
@@ -183,6 +188,12 @@ class WordCrunchingEngine:
 
         list_1 = self.preprocess_text(job_posting, self.which_stopwords)
         list_2 = self.preprocess_text(resume, self.which_stopwords)
+
+        # configuration = text_preprocessor.translate(job_posting, ro_resume, en_resume)
+        # list_2 = text_preprocessor.preprocess_text(configuration["resume"], configuration["stopwords"],
+        #                                            configuration["lemmatization_lang"])
+        # list_1 = text_preprocessor.preprocess_text(configuration["job"], configuration["stopwords"],
+        #                                            configuration["lemmatization_lang"])
 
         common_keywords_in_job_title_percentage = (common_keywords_in_job_title / total_words_in_the_job_title) * 100
         common_keywords = self.common_words(list_1, list_2)
