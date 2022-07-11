@@ -7,7 +7,10 @@ from sys import argv
 import pymongo
 from crontab import CronTab
 from flask import Flask, request
+from googletrans import Translator
 from textblob import TextBlob
+
+from ResumeParser import ResumeParser
 from WordCrunchingEngine import WordCrunchingEngine
 import textract
 from pdfminer3.layout import LAParams, LTTextBox
@@ -69,24 +72,28 @@ def preprocess_jobs_for_users(email, resume_path):
         elif ext == '.txt':
             with open(resume_path, 'r') as f:
                 resume = f.read()
+        elif ext == ".doc" or ext == ".docx":
+            resume = textract.process(resume_path).decode('utf-8')
     else:
         print("The user resume file does not exist")
+
+    # request_data = {"resumePath": resume_path}
+    # resume = resume_parser.parse_request_data(request_data)
+
+    try:
+        resume_detected_language = translator.detect(
+            str(resume).replace(" ", "").replace('\n', '').replace('\r', '')[:500]).lang
+    except Exception as e:
+        print(e)
 
     raw_jobs = jobs_col.find()
 
     for job in raw_jobs:
         result_data.append(
-            word_crunching_engine.matching_keywords(job, resume))
+            word_crunching_engine.matching_keywords(job, resume, resume_detected_language))
 
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
-
-    # for idx, job in enumerate(recommended_jobs):
-    #     print("[ " + str(idx) + " ]" + " " + job["jobName"] + ": " + job["score"] + " | " + str(
-    #         job["title_common_nr_words"]) + " | " + str(job[
-    #                                                         "title_common_percentage"]))
-
-    # print(recommended_jobs)
 
     col.update_one(
         filter={
@@ -109,5 +116,7 @@ def preprocess_jobs_for_users(email, resume_path):
 
 
 if __name__ == '__main__':
+    translator = Translator()
+    resume_parser = ResumeParser()
     word_crunching_engine = WordCrunchingEngine()
     preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path

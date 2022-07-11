@@ -17,6 +17,7 @@ from string import punctuation
 from TextPreprocessor import TextPreprocessor
 
 text_preprocessor = TextPreprocessor()
+translator = Translator()
 
 
 class WordCrunchingEngine:
@@ -39,7 +40,9 @@ class WordCrunchingEngine:
             s = s.replace(x.group(), ' ' + x.group().replace(' ', '') + ' ')
         return s
 
-    def preprocess_text(self, document, stopwords):
+    def preprocess_text(self, document, stopwords, lemmatization_lang):
+        # remove diacritics
+        document = unidecode.unidecode(document)
         # convert to lower case
         document = str(document).lower()
         # replace unusual quotes with '
@@ -91,7 +94,10 @@ class WordCrunchingEngine:
         for i in document.split():
             if i not in stopwords:
                 # use lemmatizer to reduce the inflections
-                i = self.wn.lemmatize(i)
+                if lemmatization_lang == "ro":
+                    i = simplemma.lemmatize(i, lang='ro')
+                else:
+                    i = self.wn.lemmatize(i)
                 z.append(i)
         z = ' '.join(z)
 
@@ -150,7 +156,10 @@ class WordCrunchingEngine:
         return list_res
 
     # def matching_keywords(self, job, resume):
-    def matching_keywords(self, job, resume, ro_resume, en_resume):
+    # def matching_keywords(self, job, resume, ro_resume, en_resume):
+    def matching_keywords(self, job, resume, resume_lang):
+        job_stopwords = None
+        resume_stopwords = None
 
         # try:
         #     if not (job == "" or job is None or resume == "" or resume is None):
@@ -186,8 +195,28 @@ class WordCrunchingEngine:
                 if word in job_resume_without_accent:
                     common_keywords_in_job_title += 1
 
-        list_1 = self.preprocess_text(job_posting, self.which_stopwords)
-        list_2 = self.preprocess_text(resume, self.which_stopwords)
+        # if not (job_posting == "" or job_posting is None):
+        #     job_lang = translator.detect(str(job_posting[:200])).lang
+        # else:
+        #     job_lang = 'en'
+        #
+        # if job_lang == 'ro':
+        #     job_stopwords = self.romanian_stopwords
+        # else:
+        #     job_stopwords = self.english_stopwords
+
+        if resume_lang == 'ro':
+            resume_stopwords = self.romanian_stopwords
+        else:
+            resume_stopwords = self.english_stopwords
+
+        list_1 = self.preprocess_text(job_posting, self.which_stopwords, 'en')
+        list_2 = self.preprocess_text(resume, resume_stopwords, resume_lang)
+        # list_2 = self.preprocess_text(resume, self.which_stopwords, 'en')
+
+        # list_2 = self.preprocess_text(resume, self.which_stopwords, resume_lang)
+        # list_1 = self.preprocess_text(job_posting, job_stopwords, job_lang)
+        # list_2 = self.preprocess_text(resume, resume_stopwords, resume_lang)
 
         # configuration = text_preprocessor.translate(job_posting, ro_resume, en_resume)
         # list_2 = text_preprocessor.preprocess_text(configuration["resume"], configuration["stopwords"],
@@ -271,3 +300,6 @@ def string_to_list(string):
 
 if __name__ == '__main__':
     print("hello")
+
+    print(unidecode.unidecode(
+        "Asistent medical certificat, cu peste 10 ani de experiență, timp în care am oferit sutelor de pacienți servicii medicale, sprijin și empatie pentru a le îmbunătăți starea de sănătate. Ofer îngrijire superioară folosind cunoștințele mele dobândite la Școala Sanitară Postliceală, precum și abilitățile mele de comunicare și gândire critică."))

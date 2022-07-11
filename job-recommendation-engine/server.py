@@ -6,6 +6,8 @@ from crontab import CronTab
 from flask import Flask, request
 from googletrans import Translator
 from textblob import TextBlob
+
+from ResumeParser import ResumeParser
 from WordCrunchingEngine import WordCrunchingEngine
 import textract
 from pdfminer3.layout import LAParams, LTTextBox
@@ -78,35 +80,40 @@ def preprocess_jobs_for_users():
     resume_language = ''
     resume_detected_language = ''
 
-    resume = ""
-    if path.exists(request_data["resumePath"]):
-        ext = os.path.splitext(str(request_data["resumePath"]))[-1].lower()
-        if ext == '.pdf':
-            resume = parse_pdf(request_data["resumePath"])
-        elif ext == '.txt':
-            with open(request_data["resumePath"], 'r') as f:
-                resume = f.read()  # Read whole file in the file_content string
-    else:
-        return "The user resume file does not exist"
+    # resume = ""
+    # if path.exists(request_data["resumePath"]):
+    #     ext = os.path.splitext(str(request_data["resumePath"]))[-1].lower()
+    #     if ext == '.pdf':
+    #         resume = parse_pdf(request_data["resumePath"])
+    #     elif ext == '.txt':
+    #         with open(request_data["resumePath"], 'r') as f:
+    #             resume = f.read()  # Read whole file in the file_content string
+    # else:
+    #     return "The user resume file does not exist"
 
-    resume_detected_language = translator.detect(str(resume))
-    ro_resume = ''
-    en_resume = ''
-    if resume_detected_language.lang == "ro":
-        ro_resume = resume
-        en_resume = translator.translate(resume, dest='en').text
-    elif resume_detected_language.lang == "en":
-        ro_resume = translator.translate(resume, dest='ro').text
-        en_resume = resume
+    resume = resume_parser.parse_request_data(request_data)
+
+    try:
+        resume_detected_language = translator.detect(
+            str(resume).replace(" ", "").replace('\n', '').replace('\r', '')[:500]).lang
+    except Exception as e:
+        print(e)
+    # ro_resume = ''
+    # en_resume = ''
+    # if resume_detected_language.lang == "ro":
+    #     ro_resume = resume
+    #     en_resume = translator.translate(resume, dest='en').text
+    # elif resume_detected_language.lang == "en":
+    #     ro_resume = translator.translate(resume, dest='ro').text
+    #     en_resume = resume
 
     raw_jobs = jobs_col.find()
-    # print("JOBS length: " + str(len(list(raw_jobs))))
 
     for job in raw_jobs:
         # result_data.append(
         #     word_crunching_engine.matching_keywords(job, resume, ro_resume, en_resume, resume_detected_language))
         result_data.append(
-            word_crunching_engine.matching_keywords(job, resume, ro_resume, en_resume))
+            word_crunching_engine.matching_keywords(job, resume, resume_detected_language))
 
     recommended_jobs = sorted(result_data, key=lambda k: float(k['score']),
                               reverse=True)
@@ -151,6 +158,12 @@ def register_recommend_job_for_user():
     script_command = f"{python_path} {engine_path} {email} {pdf_path} {double_arrow} {debug_path} 2>&1"
 
     with CronTab(user='silviuh1') as users_cron:
+        for job in users_cron:
+            if job.comment == email:
+                print(job.comment)
+                users_cron.remove(job)
+                users_cron.write()
+
         new_user_job = users_cron.new(
             command=script_command,
             comment=email)
@@ -164,5 +177,6 @@ def register_recommend_job_for_user():
 
 
 if __name__ == '__main__':
+    resume_parser = ResumeParser()
     word_crunching_engine = WordCrunchingEngine()
     app.run(host="localhost", port=8000, debug=True)

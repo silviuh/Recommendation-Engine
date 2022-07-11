@@ -36,3 +36,87 @@
 [ gabitim@gmail.com ]: END
 [ gabitim@gmail.com ]: START
 [ gabitim@gmail.com ]: END
+[ securityEngineer@gmail.com ]: START
+[ securityEngineer@gmail.com ]: END
+[ securityEngineer@gmail.com ]: START
+[ securityEngineer@gmail.com ]: END
+[ securityEngineer@gmail.com ]: START
+[ securityEngineer@gmail.com ]: END
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 120, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 79, in preprocess_jobs_for_users
+    resume = resume_parser.parse_request_data(request_data)
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/ResumeParser.py", line 31, in parse_request_data
+    return resume
+UnboundLocalError: local variable 'resume' referenced before assignment
+[ securityEngineer@gmail.com ]: START
+[ securityEngineer@gmail.com ]: END
+[ securityEngineer@gmail.com ]: START
+[ securityEngineer@gmail.com ]: END
+[ mediaAsistant@gmail.com ]: START
+[ mediaAsistant@gmail.com ]: END
+[ mediaAsistant@gmail.com ]: START
+list index out of range
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 93, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume, resume_detected_language))
+UnboundLocalError: local variable 'resume_detected_language' referenced before assignment
+[ mediaAsistant@gmail.com ]: START
+[ mediaAsistant@gmail.com ]: END
+[ mediaAsistant@gmail.com ]: START
+list index out of range
+Traceback (most recent call last):
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 122, in <module>
+    preprocess_jobs_for_users(str(argv[1]), str(argv[2]))  # argv[1] = email, argv[2] = resume_path
+  File "/Users/silviuh1/WORKSPACE/DEV/FACULTATE/licenta/Recommendation-Engine/job-recommendation-engine/server-endpoint-engine.py", line 93, in preprocess_jobs_for_users
+    word_crunching_engine.matching_keywords(job, resume, resume_detected_language))
+UnboundLocalError: local variable 'resume_detected_language' referenced before assignment
